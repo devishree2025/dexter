@@ -1,0 +1,310 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aszen Photo Processor</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-placeholder">LOGO PLACEHOLDER</div>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="dashboard">Dashboard</a>
+                <a href="#" class="nav-item" data-page="raw-to-jpg">Raw to JPG</a>
+                <a href="#" class="nav-item" data-page="blending">Blending</a>
+                <a href="#" class="nav-item" data-page="automation">Automation</a>
+                <a href="#" class="nav-item" data-page="admin-setting">Admin Setting</a>
+                <a href="#" class="nav-item" data-page="super-admin">Super Admin</a>
+            </nav>
+        </aside>
+
+        <div class="header">
+            <div class="header-logo">DEXTER</div>
+        </div>
+
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section id="dashboard" class="page-content active">
+                <div class="dashboard-header">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">📊</div>
+                        <div class="stat-label">Total Jobs</div>
+                        <div class="stat-value">125</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">✓</div>
+                        <div class="stat-label">Completed</div>
+                        <div class="stat-value">87</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon yellow">📈</div>
+                        <div class="stat-label">Pending</div>
+                        <div class="stat-value">38</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">👥</div>
+                        <div class="stat-label">Clients</div>
+                        <div class="stat-value">24</div>
+                    </div>
+                </div>
+                <button class="create-job-btn">+ Create Job</button>
+                <div class="jobs-section">
+                    <div class="jobs-header">
+                        <h2>Today's Jobs</h2>
+                        <a href="#" class="view-all-btn">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Job ID</th>
+                                <th>Client</th>
+                                <th>Description</th>
+                                <th>Due Time</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>JOB-001</td>
+                                <td>Acme Corp</td>
+                                <td>Website redesign</td>
+                                <td>2:30 PM</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>John Doe</td>
+                            </tr>
+                            <tr>
+                                <td>JOB-002</td>
+                                <td>Tech Solutions</td>
+                                <td>Logo design</td>
+                                <td>4:00 PM</td>
+                                <td><span class="status-badge inprogress">InProgress</span></td>
+                                <td>Jane Smith</td>
+                            </tr>
+                            <tr>
+                                <td>JOB-003</td>
+                                <td>Global Media</td>
+                                <td>Social media graphics</td>
+                                <td>5:30 PM</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td>Mike Johnson</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Raw to JPG Page -->
+            <section id="raw-to-jpg" class="page-content module-content">
+                <div class="module-header">
+                    <h2>RAW to JPG Converter</h2>
+                </div>
+                <div class="module-body">
+                    <div class="input-section">
+                        <h3>Select up to 5 input folders:</h3>
+                        <div id="raw-folders-container">
+                            <!-- Folder inputs will be dynamically created here -->
+                        </div>
+                    </div>
+                    <div class="status-section">
+                        <div id="raw-status" class="status-text">Ready</div>
+                        <div id="raw-progress" class="progress-bar" style="display: none;">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <button id="raw-convert-btn" class="process-btn">Convert All</button>
+                    <div class="results-section" id="raw-results" style="display: none;">
+                        <!-- Results will be displayed here -->
+                    </div>
+                    <div class="footer-note">*Note: This only supports JPG images.</div>
+                </div>
+            </section>
+
+            <!-- Blending Page -->
+            <section id="blending" class="page-content module-content">
+                <div class="module-header">
+                    <h2>Exposure Blender - Multi-Folder Processing</h2>
+                </div>
+                <div class="module-body">
+                    <div class="input-section">
+                        <h3>Photoshop Path</h3>
+                        <div class="folder-input">
+                            <input type="text" id="photoshop-path" readonly>
+                            <button id="check-photoshop-btn" class="browse-btn">Check Photoshop</button>
+                        </div>
+                    </div>
+                    <div class="input-section">
+                        <h3>Image Order Selection</h3>
+                        <div class="order-selection">
+                            <div class="order-item">
+                                <label>First Image:</label>
+                                <select id="blend-first-image">
+                                    <option value="Medium">Medium</option>
+                                    <option value="Dark">Dark</option>
+                                    <option value="Bright">Bright</option>
+                                </select>
+                            </div>
+                            <div class="order-item">
+                                <label>Second Image:</label>
+                                <select id="blend-second-image">
+                                    <option value="Dark">Dark</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Bright">Bright</option>
+                                </select>
+                            </div>
+                            <div class="order-item">
+                                <label>Third Image:</label>
+                                <select id="blend-third-image">
+                                    <option value="Bright">Bright</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Dark">Dark</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-section">
+                        <h3>Input Folders (Up to 5)</h3>
+                        <div id="blend-folders-container">
+                            <!-- Folder inputs will be dynamically created here -->
+                        </div>
+                    </div>
+                    <div class="status-section">
+                        <div id="blend-status" class="status-text">Ready</div>
+                        <div id="blend-progress" class="progress-bar" style="display: none;">
+                            <div class="progress-fill"></div>
+                        </div>
+                    </div>
+                    <button id="blend-process-btn" class="process-btn">Process All Folders</button>
+                    <div class="results-section" id="blend-results" style="display: none;">
+                        <!-- Results will be displayed here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Automation Page -->
+            <section id="automation" class="page-content module-content">
+                <div class="module-header">
+                    <h2>RAW to JPG Converter with Exposure Blending</h2>
+                </div>
+                <div class="module-body">
+                    <div class="tab-navigation">
+                        <button class="tab active" data-tab="main">Main</button>
+                        <button class="tab" data-tab="settings">Settings</button>
+                    </div>
+
+                    <div class="tab-content active" id="main-tab">
+                        <div class="input-section">
+                            <h3>Select up to 5 input folders and optional output folders:</h3>
+                            <div id="automation-folders-container">
+                                <!-- Folder inputs will be dynamically created here -->
+                            </div>
+                        </div>
+                        <div class="checkbox-group">
+                            <h3>Processing Options</h3>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="skip-raw">
+                                <label for="skip-raw">Skip RAW to JPG conversion (use existing JPGs)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="enable-blending" checked>
+                                <label for="enable-blending">Enable exposure blending</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="auto-detect" checked>
+                                <label for="auto-detect">Auto-detect exposure types using histogram analysis</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="auto-rename" checked>
+                                <label for="auto-rename">Auto-rename files based on exposure type</label>
+                            </div>
+                        </div>
+                        <div class="status-section">
+                            <div id="automation-status" class="status-text">Ready</div>
+                            <div id="automation-progress" class="progress-bar" style="display: none;">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                        <button id="automation-process-btn" class="process-btn">Process All Folders</button>
+                        <div class="results-section" id="automation-results" style="display: none;">
+                            <!-- Results will be displayed here -->
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="settings-tab">
+                        <div class="input-section">
+                            <h3>Photoshop Path</h3>
+                            <div class="folder-input">
+                                <input type="text" id="automation-photoshop-path" readonly>
+                                <button id="automation-check-photoshop-btn" class="browse-btn">Check Photoshop</button>
+                            </div>
+                        </div>
+                        <div class="input-section">
+                            <h3>Manual Exposure Order (when auto-detect is disabled)</h3>
+                            <div class="order-selection">
+                                <div class="order-item">
+                                    <label>First Image:</label>
+                                    <select id="automation-first-image">
+                                        <option value="Medium">Medium</option>
+                                        <option value="Dark">Dark</option>
+                                        <option value="Bright">Bright</option>
+                                    </select>
+                                </div>
+                                <div class="order-item">
+                                    <label>Second Image:</label>
+                                    <select id="automation-second-image">
+                                        <option value="Dark">Dark</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Bright">Bright</option>
+                                    </select>
+                                </div>
+                                <div class="order-item">
+                                    <label>Third Image:</label>
+                                    <select id="automation-third-image">
+                                        <option value="Bright">Bright</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Dark">Dark</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Settings Page -->
+            <section id="admin-setting" class="page-content module-content">
+                <div class="module-header">
+                    <h2>Admin Settings</h2>
+                </div>
+                <div class="module-body">
+                    <p style="text-align: center; color: #666; margin-top: 50px;">
+                        Admin settings content goes here
+                    </p>
+                </div>
+            </section>
+
+            <!-- Super Admin Page -->
+            <section id="super-admin" class="page-content module-content">
+                <div class="module-header">
+                    <h2>Super Admin</h2>
+                </div>
+                <div class="module-body">
+                    <p style="text-align: center; color: #666; margin-top: 50px;">
+                        Super admin content goes here
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
